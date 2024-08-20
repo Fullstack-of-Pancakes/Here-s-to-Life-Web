@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Scheduling</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="form-container">
+        <h2>Weekly Time Schedule</h2>
+        <form id="schedule-form" action="/submit-schedule" method="post">
+        <div class="time-table">
+            <div class="form-group">
+                <label for="monday-start">Monday:</label>
+                <input type="time" id="monday-start" name="monday_start">
+                <!-- <input type="time" id="monday-end" name="monday_end"> -->
+            </div>
+            <div class="form-group">
+                <label for="tuesday-start">Tuesday:</label>
+                <input type="time" id="tuesday-start" name="tuesday_start">
+                <!-- <input type="time" id="tuesday-end" name="tuesday_end"> -->
+            </div>
+            <div class="form-group">
+                <label for="wednesday-start">Wednesday:</label>
+                <input type="time" id="wednesday-start" name="wednesday_start">
+                <!-- <input type="time" id="wednesday-end" name="wednesday_end"> -->
+            </div>
+            <div class="form-group">
+                <label for="thursday-start">Thursday:</label>
+                <input type="time" id="thursday-start" name="thursday_start">
+                <!-- <input type="time" id="thursday-end" name="thursday_end"> -->
+            </div>
+            <div class="form-group">
+                <label for="friday-start">Friday:</label>
+                <input type="time" id="friday-start" name="friday_start">
+                <!-- <input type="time" id="friday-end" name="friday_end"> -->
+            </div>
+            <div class="form-group">
+                <label for="saturday-start">Saturday:</label>
+                <input type="time" id="saturday-start" name="saturday_start">
+                <!-- <input type="time" id="saturday-end" name="saturday_end"> -->
+            </div>
+            <div class="form-group">
+                <label for="sunday-start">Sunday:</label>
+                <input type="time" id="sunday-start" name="sunday_start">
+                <!-- <input type="time" id="sunday-end" name="sunday_end"> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit Schedule">
+        </div>
+    </form>
+    </div>
+
+    <script>
+    const form = document.querySelector('form')
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const obj = Object.fromEntries(fd);
+
+        for(item of fd) {
+            console.log(obj)
+        }
+    })
+
+    </script>
+
+    <!-- <script>
+        // Function to save form data to localStorage
+        function saveFormData() {
+            const form = document.getElementById('schedule-form');
+            const formData = new FormData(form);
+            formData.forEach((value, key) => {
+                localStorage.setItem(key, value);
+            });
+        }
+
+        // Function to load form data from localStorage
+        function loadFormData() {
+            const form = document.getElementById('schedule-form');
+            const inputs = form.querySelectorAll('input[type="time"]');
+            inputs.forEach(input => {
+                const value = localStorage.getItem(input.name);
+                if (value) {
+                    input.value = value;
+                }
+            });
+        }
+
+        // Load form data when the page loads
+        window.addEventListener('load', loadFormData);
+
+        // Save form data when the form is submitted
+        document.getElementById('schedule-form').addEventListener('submit', saveFormData);
+    </script> -->
+  
+    <div class="form-container">
+        <h2>Schedule an Appointment</h2>
+        <form id="appointment-form" autocomplete="on">
+            <div class="form-group">
+                <label for="travel-reason">Location/Reason for Travel:</label>
+                <input type="text" id="travel-reason" name="travel_reason" placeholder="Reason for traveling or location Name" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Enter time:</label>
+                <input type="time" id="time" name="time">
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input id="autocomplete" name="location" placeholder="Enter Location" type="text" required />
+                <div id="map"></div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Schedule Appointment">
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Initialize and add the map
+        const georgiaBounds = {
+            north: 35.0021,
+            south: 30.3578,
+            east: -80.8378,
+            west: -85.6052
+        };
+    
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 32.1656, lng: -82.9001 },
+                zoom: 7,
+            });
+    
+            const autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById("autocomplete"),
+                {
+                    types: ["geocode"],
+                    componentRestrictions: { country: "us" },
+                    bounds: new google.maps.LatLngBounds(
+                        new google.maps.LatLng(georgiaBounds.south, georgiaBounds.west),
+                        new google.maps.LatLng(georgiaBounds.north, georgiaBounds.east)
+                    )
+                }
+            );
+    
+            autocomplete.bindTo("bounds", map);
+    
+            autocomplete.addListener("place_changed", () => {
+                const place = autocomplete.getPlace();
+    
+                if (!place.geometry) {
+                    console.log("No details available for input: '" + place.name + "'");
+                    return;
+                }
+    
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+    
+                new google.maps.Marker({
+                    position: place.geometry.location,
+                    map: map,
+                });
+            });
+        }
+    
+        // Script to save form data locally in a JavaScript object
+        document.getElementById('appointment-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+    
+            // Create an object to store the form data
+            const formData = {
+                travel_reason: document.getElementById('travel-reason').value,
+                time: document.getElementById('time').value,
+                location: document.getElementById('autocomplete').value
+            };
+    
+            console.log('Form Data:', formData);
+    
+            // Example: Store the form data in localStorage
+            localStorage.setItem('appointmentData', JSON.stringify(formData));
+    
+            // Optionally, you can trigger an action after saving the data, like navigating to another page
+            // window.location.href = "/confirmation-page.html";
+        });
+    </script>
+    
+    <!-- Load the Google Maps API -->
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8isNPZVWCI_HUjhdztQrPIxxFsUzieKg&libraries=places&callback=initMap"
+        defer
+    ></script>
+    
+</html>

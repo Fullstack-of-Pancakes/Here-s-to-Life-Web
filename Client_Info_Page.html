@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix Housing Participant Upcoming Appointments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<!-- <body>
+    <div class="form-container">
+        <h2>Phoenix Rising Housing Participant Upcoming Appointments</h2>
+        <form action="/register" method="post">
+            <div class="form-group">
+                <label for="first-name">Participant First Name:</label>
+                <input type="text" id="first-name" name="first_name" placeholder="Hank" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Participant Last Name:</label>
+                <input type="text" id="last-name" name="last_name" placeholder="Hill" required>
+            </div>
+            <div class="form-group">
+                <label for="coach-name">Recovery Coach:</label>
+                <input type="text" id="coach-name" name="coach" placeholder="Indida" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Today's Date:</label>
+                <input type="date" id="todays-date" name="todays_date" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" placeholder="hank.r.hill@bwuah.com" required>
+            </div>
+
+            <h3>Income</h3>
+            <form action="/submit" method="post">
+                <div class="form-group">
+                    <label for="show-fields">
+                        <input type="checkbox" id="show-fields" name="show-fields">
+                        I Receive Income
+                    </label>
+                </div>
+                <div class="form-group hidden" id="conditional-field">
+                    <label for="income-amount">Income Amount:</label>
+                    <input type="text" id="income-amount" name="income_amount" placeholder="$0">
+                    <label for="appointment-date">Date Received:</label>
+                    <input type="date" id="appointment-date" name="appointment_date" required>
+                    <label for="food-stamps">Food Stamps Amount:</label>
+                <input type="text" id="food-stamps-amount" name="food_stamps_amount" placeholder="$0" required>
+                </div>
+            </form>
+            <div class="form-group">
+                <label for="Employment">
+                    <input type="checkbox" id="employment" name="employment">
+                    Employment
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="social-security">
+                    <input type="checkbox" id="social-security" name="social_security">
+                    SSI/SSDI
+                </label>
+            </div>
+            <div class="form-group">
+                <form action="Client_Schedule.html" method="get">
+                    <input type="submit" value="Submit Participant Information">
+                </form>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Get references to the checkbox and the container for additional fields
+        const checkbox = document.getElementById('show-fields');
+        const conditionalField = document.getElementById('conditional-field');
+       
+        // Function to toggle the visibility of the additional fields
+        function toggleFields() {
+            if (checkbox.checked) {
+                conditionalField.classList.remove('hidden');
+            } else {
+                conditionalField.classList.add('hidden');
+            }
+        }
+
+        // Add an event listener to the checkbox to call toggleFields when checked status changes
+        checkbox.addEventListener('change', toggleFields);
+    </script>
+</body> -->
+
+
+<body>
+    <div class="form-container">
+        <h2>Phoenix Rising Housing Participant Upcoming Appointments</h2>
+        <form id="main-form" action="Client_Schedule.html" method="get">
+            <div class="form-group">
+                <label for="first-name">Participant First Name:</label>
+                <input type="text" id="first-name" name="first_name" placeholder="Hank" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Participant Last Name:</label>
+                <input type="text" id="last-name" name="last_name" placeholder="Hill" required>
+            </div>
+            <div class="form-group">
+                <label for="coach-name">Recovery Coach:</label>
+                <input type="text" id="coach-name" name="coach" placeholder="Indida" required>
+            </div>
+            <div class="form-group">
+                <label for="todays-date">Today's Date:</label>
+                <input type="date" id="todays-date" name="todays_date" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="hank.r.hill@bwuah.com" required>
+            </div>
+
+            <h3>Income</h3>
+            <div class="form-group">
+                <label for="show-fields">
+                    <input type="checkbox" id="show-fields" name="show-fields">
+                    I Receive Income
+                </label>
+            </div>
+            <div class="form-group hidden" id="conditional-field">
+                <label for="income-amount">Income Amount:</label>
+                <input type="text" id="income-amount" name="income_amount" placeholder="$0">
+                <label for="appointment-date">Date Received:</label>
+                <input type="date" id="appointment-date" name="appointment_date">
+                <label for="food-stamps">Food Stamps Amount:</label>
+                <input type="text" id="food-stamps-amount" name="food_stamps_amount" placeholder="$0">
+            </div>
+
+            <div class="form-group">
+                <label for="employment">
+                    <input type="checkbox" id="employment" name="employment">
+                    Employment
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="social-security">
+                    <input type="checkbox" id="social-security" name="social_security">
+                    SSI/SSDI
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit Participant Information">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.querySelector('form')
+    
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fd = new FormData(form);
+            const obj = Object.fromEntries(fd);
+            const json = JSON.stringify(obj)
+            localStorage.setItem('form', json);
+
+            // window.location.href = "confirm.html"
+    
+            for(item of fd) {
+                console.log(obj)
+            }
+        })
+    
+         </script>
+
+    <script>
+        // JavaScript to handle form submission and conditional fields
+        document.getElementById('show-fields').addEventListener('change', function() {
+            document.getElementById('conditional-field').classList.toggle('hidden', !this.checked);
+        });
+    </script>
+</body>
+</html>
